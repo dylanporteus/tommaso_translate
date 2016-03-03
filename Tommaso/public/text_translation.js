@@ -4,25 +4,26 @@
    console.log('text_translation.js loaded.')
 	$('.form-button').click(function(){
 		event.preventDefault();
-		var transTextUrl = "http://api.openweathermap.org/data/2.5/weather?"
-        var appID = "44db6a862fba0b067b1930da0d769e98" /*ENV["TRANSLATE_KEY"]*/
-        var engInput = $('.form-input').val() 
+		var transTextUrl = "www.googleapis.com/language/translate/v2?";
+        var appKey = ENV["TRANSLATE_KEY"];
+        var engInput = $('.form-input').val(); 
         
 
 		$.ajax({
+			dataType: "JSON",
 			url: transTextUrl,
 			type: "GET",
-			data: {"appid": appID, "q": engInput},
+			data: {"key": appKey, "q": engInput},
 			error: function(){
 				alert('Oh no! Something went wrong. Please try again')
 			},
 			success: function(data){
+				console.log(dataType);
               
-              var forecast = parseInt(data.main.temp)
-              var conversionF = Math.floor(forecast * 9/5 - 459.67)
-           console.log(conversionF)
+               var langSwitch = (data.translations);
+       
 
-           $('#result-ita').text("In " +citySelect+ " it's " +conversionF+ " degrees Farenheit")
+           // $('#result-ita').text("In " +citySelect+ " it's " +conversionF+ " degrees Farenheit")
 
 			}
 
